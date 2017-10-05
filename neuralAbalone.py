@@ -43,7 +43,7 @@ SECOND = 1
 # if 1 there is a third layer
 THIRD = 0
 
-SET_OF_FEATURES = [0,1,2]
+SET_OF_FEATURES = [0,1,2,3,5,6]
 
 
 def model_fn(features, labels, mode, params):
@@ -118,10 +118,13 @@ def main(unused_argv):
   test_set = tf.contrib.learn.datasets.base.load_csv_without_header(
       filename=abalone_test, target_dtype=np.int, features_dtype=np.float64)
 
+  test_set_to_use = test_set.data[:, SET_OF_FEATURES]
+
   # Set of 7 examples for which to predict abalone ages
   prediction_set = tf.contrib.learn.datasets.base.load_csv_without_header(
       filename=abalone_predict, target_dtype=np.int, features_dtype=np.float64)
 
+  prediction_set_to_use = prediction_set.data[:, SET_OF_FEATURES]
   # Set model params
   model_params1 = {"learning_rate": LEARNING_RATE}
 
@@ -130,7 +133,7 @@ def main(unused_argv):
   nn = tf.estimator.Estimator(model_fn=model_fn, params=model_params1)
 
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
-      x={"x": np.array(training_set.data)},
+      x={"x": np.array(training_set_to_use)},
       y=np.array(training_set.target),
       num_epochs=None,
       shuffle=True)
@@ -140,7 +143,7 @@ def main(unused_argv):
 
   # Score accuracy
   test_input_fn = tf.estimator.inputs.numpy_input_fn(
-      x={"x": np.array(test_set.data)},
+      x={"x": np.array(test_set_to_use)},
       y=np.array(test_set.target),
       num_epochs=1,
       shuffle=False)
@@ -151,7 +154,7 @@ def main(unused_argv):
 
   # Print out predictions
   predict_input_fn = tf.estimator.inputs.numpy_input_fn(
-      x={"x": prediction_set.data},
+      x={"x": prediction_set_to_use},
       num_epochs=1,
       shuffle=False)
   predictions = nn.predict(input_fn=predict_input_fn)
