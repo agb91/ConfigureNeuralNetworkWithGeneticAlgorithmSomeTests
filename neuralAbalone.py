@@ -25,37 +25,20 @@ from six.moves import urllib
 
 import numpy as np
 import tensorflow as tf
+from gene import Gene
 
-class neuralAbalone():
-  '''
-  FLAGS = None
+class NeuralAbalone():
+  
 
-  tf.logging.set_verbosity(3)
-
-  # Learning rate for the model
-  LEARNING_RATE = 0.01
-  # How many steps
-  STEPS = 5000
-  #How many units in each layer? (only if the layer exists obvious..)
-  UNITS1 = 10
-  UNITS2 = 10
-  UNITS3 = 10
-  # if 1 there is a second layer
-  SECOND = 1
-  # if 1 there is a third layer
-  THIRD = 0
-
-  SET_OF_FEATURES = [0,1,2,3,5,6]
-  '''
-  def __init__(self , LEARNING_RATE, STEPS, UNITS1, UNITS2, UNITS3, SECOND, THIRD, SET_OF_FEATURES):
-    self.LEARNING_RATE = LEARNING_RATE 
-    self.STEPS = STEPS
-    self.UNITS1 = UNITS1
-    self.UNITS2 = UNITS2
-    self.UNITS3 = UNITS3
-    self.SECOND = SECOND
-    self.THIRD = THIRD  
-    self.SET_OF_FEATURES = SET_OF_FEATURES
+  def __init__(self , gene):
+    self.LEARNING_RATE = gene.LEARNING_RATE 
+    self.STEPS = gene.STEPS
+    self.UNITS1 = gene.UNITS1
+    self.UNITS2 = gene.UNITS2
+    self.UNITS3 = gene.UNITS3
+    self.SECOND = gene.SECOND
+    self.THIRD = gene.THIRD  
+    self.SET_OF_FEATURES = gene.SET_OF_FEATURES
 
   def model_fn(self, features, labels, mode, params):
     """Model function for Estimator."""
@@ -172,8 +155,8 @@ class neuralAbalone():
     for i, p in enumerate(predictions):
       print("Prediction %s: %s  -----  real was:  %s" % (i + 1, p["ages"] , prediction_set[1][i]) )
 
-
+    return ev["loss"]  
 
   def run(self):
-    self.analyzeAbalones()
-
+    loss = self.analyzeAbalones()
+    return loss

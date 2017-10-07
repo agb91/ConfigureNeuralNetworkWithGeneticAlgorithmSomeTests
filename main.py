@@ -1,8 +1,9 @@
-from neuralAbalone import neuralAbalone 
+from neuralAbalone import NeuralAbalone 
+from gene import Gene
 
 if __name__ == "__main__":
   # Learning rate for the model
-  LEARNING_RATE = 0.01
+  LEARNING_RATE = 0.001
   # How many steps
   STEPS = 5000
   #How many units in each layer? (only if the layer exists obvious..)
@@ -15,5 +16,11 @@ if __name__ == "__main__":
   THIRD = 0
 
   SET_OF_FEATURES = [0,1,2,3,5,6]
-  nn = neuralAbalone( LEARNING_RATE, STEPS, UNITS1, UNITS2, UNITS3, SECOND, THIRD, SET_OF_FEATURES )
-  nn.run()
+
+
+  confs = Gene( LEARNING_RATE, STEPS, UNITS1, UNITS2, UNITS3, SECOND, THIRD, SET_OF_FEATURES )
+
+  nn = NeuralAbalone( confs )
+  loss = nn.run()
+
+  print("we reach a loss of: " + str( loss ) )
