@@ -1,3 +1,5 @@
+import random
+
 class Gene:
 
 	def __init__( self, lr, steps, u1, u2, u3, second, third, feat ):
@@ -10,7 +12,14 @@ class Gene:
 		self.THIRD = third
 		self.SET_OF_FEATURES = feat
 
-	def isAcceptable(self):
+	def toStr( self ):
+		print( "gene: " + str( self.LEARNING_RATE ) + " -- " + str( self.STEPS )+ " -- " + 
+			str( self.UNITS1 ) + " -- " + str( self.UNITS2 ) + " -- " + str( self.UNITS3 ) )	
+
+	def setFitnessLevel( self, l ):
+		self.level = l	
+
+	def isAcceptable( self ):
 		if(self.LEARNING_RATE > 1 or self.LEARNING_RATE<0 ):
 			return False
 		if( self.STEPS > 40000 or self.STEPS< 0 ):
@@ -26,3 +35,4 @@ class Gene:
 		if(self.THIRD <0 or self.THIRD > 1):
 			return False
 		return True	
+
