@@ -1,6 +1,7 @@
 from neuralAbalone import NeuralAbalone 
 from gene import Gene
 from geneCreator import GeneCreator
+from breeder import Breeder
 
 if __name__ == "__main__":
   # Learning rate for the model
@@ -23,18 +24,20 @@ if __name__ == "__main__":
   confs = Gene( LEARNING_RATE, STEPS, UNITS1, UNITS2, UNITS3, SECOND, THIRD, SET_OF_FEATURES )
   
   creator = GeneCreator()
+  breeder = Breeder()
+  generation = breeder.getFirstGeneration( 5 )
+  generation = breeder.run( generation )
 
+  for i in range ( 0 , 5 ):
+    print( "\n\n\n########################## GENERATION: " + i + " ##########################")
+    generation = breeder.getNewGeneration(generation , 5)
+    generation = breeder.run( generation )
+    best = breeder.takeBest( generation )
+    #best.toStr()
+    print("we reach a loss of: " + str( best.level) )
 
-  g1 = creator.randomCreate()
-  g1.toStr()
-
-  g2 = creator.randomCreate()
-  g2.toStr()
-
-  g3 = creator.randomCreate()
-  g3.toStr()
-
-  nn = NeuralAbalone( confs )
-  loss = nn.run()
-
-  print("we reach a loss of: " + str( loss ) )
+  #nn = NeuralAbalone( confs )
+  #loss = nn.run()
+  print( "\n\n\n########################## IN THE END ##########################")
+    
+  print("we reach a loss of: " + str( best.level) )

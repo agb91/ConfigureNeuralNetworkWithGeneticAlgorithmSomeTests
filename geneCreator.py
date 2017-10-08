@@ -27,7 +27,7 @@ class GeneCreator:
 		u3 = self.randomUnits()
 		l2 = 1
 		l3 = self.randomLevelExists()
-		rset = self.randomSet
+		rset = self.randomSet()
 		#for the moment i wanna force at least 1 level
 		gene = Gene( rl, rs, u1, u2, u3, l2, l3, rset )
 		return gene 	

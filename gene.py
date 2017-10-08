@@ -2,6 +2,7 @@ import random
 
 class Gene:
 
+
 	def __init__( self, lr, steps, u1, u2, u3, second, third, feat ):
 		self.LEARNING_RATE = lr
 		self.STEPS = steps
@@ -13,8 +14,9 @@ class Gene:
 		self.SET_OF_FEATURES = feat
 
 	def toStr( self ):
-		print( "gene: " + str( self.LEARNING_RATE ) + " -- " + str( self.STEPS )+ " -- " + 
-			str( self.UNITS1 ) + " -- " + str( self.UNITS2 ) + " -- " + str( self.UNITS3 ) )	
+		print( "gene: " + str( self.LEARNING_RATE ) + " -- " + str( self.STEPS )+ " -- " +
+			str( self.UNITS1 ) + " -- " + str( self.UNITS2 ) + " -- " + str( self.UNITS3 ) 
+			+ " -- " + str( self.level ))	
 
 	def setFitnessLevel( self, l ):
 		self.level = l	
