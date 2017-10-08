@@ -29,7 +29,7 @@ if __name__ == "__main__":
   generation = breeder.run( generation )
 
   for i in range ( 0 , 5 ):
-    print( "\n\n\n########################## GENERATION: " + i + " ##########################")
+    print( "\n\n\n########################## GENERATION: " + str(i) + " ##########################")
     generation = breeder.getNewGeneration(generation , 5)
     generation = breeder.run( generation )
     best = breeder.takeBest( generation )
