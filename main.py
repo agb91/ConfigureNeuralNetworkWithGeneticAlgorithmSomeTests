@@ -1,4 +1,5 @@
 from neuralAbalone import NeuralAbalone 
+from standardEstimators import StandardEstimators
 from gene import Gene
 from geneCreator import GeneCreator
 from breeder import Breeder
@@ -41,3 +42,4 @@ if __name__ == "__main__":
   print( "\n\n\n########################## IN THE END ##########################")
     
   print("we reach a loss of: " + str( best.level) )
+
