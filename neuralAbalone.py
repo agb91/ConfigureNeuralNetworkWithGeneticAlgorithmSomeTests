@@ -33,36 +33,23 @@ class NeuralAbalone():
   def __init__(self , gene):
     self.LEARNING_RATE = gene.LEARNING_RATE 
     self.STEPS = gene.STEPS
-    self.UNITS1 = gene.UNITS1
-    self.UNITS2 = gene.UNITS2
-    self.UNITS3 = gene.UNITS3
-    self.SECOND = gene.SECOND
-    self.THIRD = gene.THIRD  
-    self.SET_OF_FEATURES = gene.SET_OF_FEATURES
+    self.UNITS = gene.UNITS
+    self.SET_OF_FEATURES = [0,1,2,3,4,5,6] # always all
 
   def model_fn(self, features, labels, mode, params):
     """Model function for Estimator."""
 
     # Connect the first hidden layer to input layer
     # (features["x"]) with relu activation
-    first_hidden_layer = tf.layers.dense(features["x"], self.UNITS1, activation=tf.nn.relu)
+    myLayer = tf.layers.dense(features["x"], self.UNITS[0], activation=tf.nn.relu)
 
-    if(self.SECOND == 1):
-      # Connect the second hidden layer to first hidden layer with relu
-      second_hidden_layer = tf.layers.dense(
-        first_hidden_layer, self.UNITS2, activation=tf.nn.relu)
-    else:
-      second_hidden_layer = first_hidden_layer
+    levels = len( self.UNITS )
+    for k in range( 1 , (levels - 1) ):
+        myLayer = tf.layers.dense(
+            myLayer, self.UNITS[k], activation=tf.nn.relu)
 
-    if(self.THIRD == 1):
-      # Connect the third hidden layer to second hidden layer with relu
-      third_hidden_layer = tf.layers.dense(
-        second_hidden_layer, self.UNITS3, activation=tf.nn.relu)
-    else:
-      third_hidden_layer = second_hidden_layer
-    
-    # Connect the output layer to third hidden layer (no activation fn)
-    output_layer = tf.layers.dense(third_hidden_layer, 1)
+    # Connect the output layer to last hidden layer (no activation fn)
+    output_layer = tf.layers.dense(myLayer, 1)
 
     # Reshape output layer to 1-dim Tensor to return predictions
     predictions = tf.reshape(output_layer, [-1])
@@ -95,7 +82,7 @@ class NeuralAbalone():
         eval_metric_ops=eval_metric_ops)
 
 
-  def analyzeAbalones( self ):
+  def analyzeAbalones( self, verbose ):
     # Load datasets
     path = "/home/andrea/Desktop/python/tensorflowTutorialGenerical/"
     abalone_train = path + "training"
@@ -152,11 +139,12 @@ class NeuralAbalone():
         num_epochs=1,
         shuffle=False)
     predictions = nn.predict(input_fn=predict_input_fn)
-    for i, p in enumerate(predictions):
-      print("Prediction %s: %s  -----  real was:  %s" % (i + 1, p["ages"] , prediction_set[1][i]) )
+    if( verbose == 1):
+        for i, p in enumerate(predictions):
+          print("Prediction %s: %s  -----  real was:  %s" % (i + 1, p["ages"] , prediction_set[1][i]) )
 
     return ev["loss"]  
 
-  def run(self):
-    loss = self.analyzeAbalones()
+  def run(self , verbose):
+    loss = self.analyzeAbalones( verbose )
     return loss

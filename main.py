@@ -1,38 +1,31 @@
 from neuralAbalone import NeuralAbalone 
-from standardEstimators import StandardEstimators
+#from standardEstimators import StandardEstimators
 from gene import Gene
 from geneCreator import GeneCreator
 from breeder import Breeder
 
 if __name__ == "__main__":
   # Learning rate for the model
-  LEARNING_RATE = 0.001
+  #LEARNING_RATE = 0.001
   # How many steps
-  STEPS = 5000
+  #STEPS = 5000
   #How many units in each layer? (only if the layer exists obvious..)
-  UNITS1 = 10
-  UNITS2 = 10
-  UNITS3 = 10
-  # if 1 there is a second layer
-  SECOND = 1
-  # if 1 there is a third layer
-  THIRD = 0
-
-  SET_OF_FEATURES = [0,1,2,3,4,5,6]
-
-
-
-  confs = Gene( LEARNING_RATE, STEPS, UNITS1, UNITS2, UNITS3, SECOND, THIRD, SET_OF_FEATURES )
+  #UNITS = [10 , 10, 10]
   
+  #confs = Gene( LEARNING_RATE, STEPS, UNITS )
+  
+  population = 4
+  nGenerations = 4
+
   creator = GeneCreator()
   breeder = Breeder()
-  generation = breeder.getFirstGeneration( 5 )
-  generation = breeder.run( generation )
+  generation = breeder.getFirstGeneration( population )
+  generation = breeder.run( generation , 1 )
 
-  for i in range ( 0 , 5 ):
+  for i in range ( 0 , nGenerations ):
     print( "\n\n\n########################## GENERATION: " + str(i) + " ##########################")
-    generation = breeder.getNewGeneration(generation , 5)
-    generation = breeder.run( generation )
+    generation = breeder.getNewGeneration(generation , population)
+    generation = breeder.run( generation , 1 )
     best = breeder.takeBest( generation )
     #best.toStr()
     print("we reach a loss of: " + str( best.level) )

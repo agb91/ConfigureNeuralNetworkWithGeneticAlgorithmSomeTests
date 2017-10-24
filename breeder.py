@@ -25,29 +25,19 @@ class Breeder:
 		lr = parents[rlr].LEARNING_RATE
 		rsteps = random.randint(0, (len(parents) - 1 ))
 		steps = parents[rsteps].STEPS
-		ru1 = random.randint(0, (len(parents) - 1 ))
-		u1 = parents[ru1].UNITS1
-		ru2 = random.randint(0, (len(parents) - 1 ))
-		u2 = parents[ru2].UNITS2
-		ru3 = random.randint(0, (len(parents) - 1 ))
-		u3 = parents[ru1].UNITS3
-		rsec = random.randint(0, (len(parents) - 1 ))
-		second = parents[rsec].SECOND
-		rthi = random.randint(0, (len(parents) - 1 ))
-		third = parents[rthi].THIRD
-		rfeat = random.randint(0, (len(parents) - 1 ))
-		feat = parents[rfeat].SET_OF_FEATURES
+		ru = random.randint(0, (len(parents) - 1 ))
+		u = parents[ru].UNITS
 
-		son = Gene( lr, steps, u1, u2, u3, second, third, feat )
+		son = Gene( lr, steps, u )
 		return son	
 
-	def run(self, generation):
+	def run(self, generation, verbose):
 		runnedGeneration = list()
 		
 		for i in range( 0 , len(generation)):
 			g = generation[i]
 			nn = NeuralAbalone( g )
-			g.setFitnessLevel( nn.run() ) 
+			g.setFitnessLevel( nn.run( verbose ) ) 
 			#g.toStr()
 			runnedGeneration.append(g)
 		return runnedGeneration	
