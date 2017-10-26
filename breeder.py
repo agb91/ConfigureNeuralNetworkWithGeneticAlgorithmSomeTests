@@ -14,7 +14,7 @@ class Breeder:
 		if(n<3):
 			strongestN = n
 		goods = self.takeGoods( old , strongestN )
-		for i in range( 0 , (n - 1) ):
+		for i in range( 0 , (n ) ):
 			son = self.getSon( goods )
 			newGeneration.append(son)
 
