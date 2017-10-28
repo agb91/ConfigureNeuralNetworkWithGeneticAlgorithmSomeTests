@@ -7,6 +7,7 @@ class Gene:
 		self.LEARNING_RATE = lr
 		self.STEPS = steps
 		self.UNITS = units
+		self.level = None
 
 	def toStr( self ):
 		print( "gene: " + str( self.LEARNING_RATE ) + " -- " + str( self.STEPS )+ " -- " +

@@ -20,14 +20,27 @@ class Breeder:
 
 		return newGeneration
 
+	def getUnits( self , parents ):
+		thisParents = list()
+		thisParents = parents
+		rp = random.randint(0, (len(thisParents) - 1 ))
+		howMany = len( thisParents[rp].UNITS )
+		newUnits = list()
+		for i in range( 0 , (howMany - 1) ):
+			who = random.randint(0, (len(thisParents) - 1 ))
+			if( len(thisParents[who].UNITS) > i ):
+				toAdd = thisParents[who].UNITS[i]
+			else:
+				toAdd = random.randint(5 , 30)
+			newUnits.append( toAdd )
+		return newUnits					
+
 	def getSon( self, parents ):
 		rlr = random.randint(0, (len(parents) - 1 ) )
 		lr = parents[rlr].LEARNING_RATE
 		rsteps = random.randint(0, (len(parents) - 1 ))
 		steps = parents[rsteps].STEPS
-		ru = random.randint(0, (len(parents) - 1 ))
-		u = parents[ru].UNITS
-
+		u = self.getUnits( parents )
 		son = Gene( lr, steps, u )
 		return son	
 

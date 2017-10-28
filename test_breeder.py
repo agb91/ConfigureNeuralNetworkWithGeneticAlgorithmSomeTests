@@ -33,9 +33,14 @@ class TestBreeder:
 	def testGetSon(self):
 		breeder = Breeder()
 		g1 = Gene( 1, 100, [1,2,3] )
+		print( "\nparent1:" )
+		g1.toStr()
 		g2 = Gene( 2, 200, [9,10,11,12] )
+		print( "\nparen2:" )
+		g2.toStr()
 		son = breeder.getSon( [g1,g2] )
-		
+		print( "\n son:" )
+		son.toStr()
 		count = 0
 		if( son.LEARNING_RATE == g1.LEARNING_RATE ):
 			count += 1
@@ -50,12 +55,18 @@ class TestBreeder:
 			count += 1	
 		assert ( count == 1 )
 
-		count = 0
-		if( son.UNITS == g1.UNITS ):
-			count += 1
-		if( son.UNITS == g2.UNITS ):
-			count += 1	
-		assert ( count == 1 )
+		major = len( g1.UNITS )
+		if( len( g2.UNITS ) > major ):
+			major = len( g2.UNITS )
+		for i in range( 0, (major - 1) ):
+			count = 0
+			if( len(son.UNITS) > i and len(g1.UNITS) > i ):
+				if( son.UNITS[i] == g1.UNITS[i] ):
+					count += 1
+			if( len(son.UNITS) > i and len(g2.UNITS) > i ):
+				if( son.UNITS[i] == g2.UNITS[i] ):
+					count += 1	
+			assert ( count == 1 )
 
 	def testOrderAndTakeGenes(self):
 		breeder = Breeder()
