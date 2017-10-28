@@ -26,12 +26,12 @@ class Breeder:
 		rp = random.randint(0, (len(thisParents) - 1 ))
 		howMany = len( thisParents[rp].UNITS )
 		newUnits = list()
-		for i in range( 0 , (howMany - 1) ):
-			who = random.randint(0, (len(thisParents) - 1 ))
-			if( len(thisParents[who].UNITS) > i ):
-				toAdd = thisParents[who].UNITS[i]
-			else:
-				toAdd = random.randint(5 , 30)
+		for i in range( 0 , howMany ):
+			toAdd = None
+			while (toAdd is None):
+				who = random.randint(0, (len(thisParents) - 1 ))
+				if( len(thisParents[who].UNITS) > i ):
+					toAdd = thisParents[who].UNITS[i]
 			newUnits.append( toAdd )
 		return newUnits					
 

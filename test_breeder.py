@@ -55,10 +55,10 @@ class TestBreeder:
 			count += 1	
 		assert ( count == 1 )
 
-		major = len( g1.UNITS )
-		if( len( g2.UNITS ) > major ):
-			major = len( g2.UNITS )
-		for i in range( 0, (major - 1) ):
+		minor = len( g1.UNITS )
+		if( len( g2.UNITS ) < minor ):
+			minor = len( g2.UNITS )
+		for i in range( 0, minor ):
 			count = 0
 			if( len(son.UNITS) > i and len(g1.UNITS) > i ):
 				if( son.UNITS[i] == g1.UNITS[i] ):
