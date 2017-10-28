@@ -1,5 +1,6 @@
 import pytest
 from geneCreator import GeneCreator
+from gene import Gene 
 
 class testGeneCreator:
 
@@ -21,3 +22,6 @@ class testGeneCreator:
 		rlev = gc.randomLevel()
 		assert( rlev >= 1 )
 		assert( rlev <=3 )
+
+		g = gc.randomCreate()
+		assert g.isAcceptable() == True
